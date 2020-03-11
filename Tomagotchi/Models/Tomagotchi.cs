@@ -11,6 +11,7 @@ namespace Tomagotchi.Models
     public int Sleep { get; set; }
     public int Days { get; set; }
     public int Id { get; }
+    public int Counter { get; set; }
     private static List<Pet> _pets = new List<Pet>(); 
 
     public Pet(string name)
@@ -22,6 +23,7 @@ namespace Tomagotchi.Models
       Days = 0;
       _pets.Add(this);
       Id = _pets.Count;
+      Counter = 0;
     }
     public static List<Pet> GetAll()
     {
@@ -30,14 +32,18 @@ namespace Tomagotchi.Models
     public void FeedPet()
     {
       Food += 4;
+      Counter ++;
     }
     public void PlayPet()
     {
       Play += 4;
+      Counter ++;
+
     }
     public void SleepPet()
     {
       Sleep += 4;
+      Counter ++;
     }
     public static void PassTime()
     {
@@ -47,6 +53,13 @@ namespace Tomagotchi.Models
         pet.Play -= 7;
         pet.Sleep -= 7;
         pet.Days++;
+        pet.Counter = 0;
+        if (pet.Days%10 == 0)
+        {
+          pet.Food += 45;
+          pet.Play += 45;
+          pet.Sleep += 45;
+        }
       }
     }
 

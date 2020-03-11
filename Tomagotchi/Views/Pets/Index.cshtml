@@ -4,7 +4,7 @@
 <ul>
   @foreach (Pet pet in Model)
   {
-    @if (pet.Food > 0 && pet.Sleep > 0 && pet.Play > 0)
+    @if (pet.Food > 0 && pet.Sleep > 0 && pet.Play > 0 && pet.Counter < 100)
     {
     <li>@pet.Name</li>
       <ul>
@@ -13,20 +13,27 @@
         <li>Sleep: @pet.Sleep</li>
         <li>Age: @pet.Days</li>
       </ul>
-    <form action="/index/@pet.Id" method="post">
-    <input type="hidden" name="food" value="true">
-    <button type="submit">Feed!</button>
-    </form>
+      @if (@pet.Counter < 2)
+      {
+      <form action="/index/@pet.Id" method="post">
+      <input type="hidden" name="food" value="true">
+      <button type="submit">Feed!</button>
+      </form>
 
-    <form action="/index/@pet.Id" method="post">
-    <input type="hidden" name="play" value="true">
-    <button type="submit">play!</button>
-    </form>
+      <form action="/index/@pet.Id" method="post">
+      <input type="hidden" name="play" value="true">
+      <button type="submit">play!</button>
+      </form>
 
-    <form action="/index/@pet.Id" method="post">
-    <input type="hidden" name="sleep" value="true">
-    <button type="submit">Sleep!</button>
-    </form>
+      <form action="/index/@pet.Id" method="post">
+      <input type="hidden" name="sleep" value="true">
+      <button type="submit">Sleep!</button>
+      </form>
+      }
+    }
+    else if (pet.Counter == 100)
+    {
+      <h1>@pet.Name has passed on after a full and happy life.</h1>
     }
     else
     {
