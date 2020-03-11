@@ -1,0 +1,42 @@
+@using Tomagotchi.Models;
+
+<h2>Your Tamagotchis:</h2>
+<ul>
+  @foreach (Pet pet in Model)
+  {
+    @if (pet.Food > 0 && pet.Sleep > 0 && pet.Play > 0)
+    {
+    <li>@pet.Name</li>
+      <ul>
+        <li>Food: @pet.Food</li>
+        <li>Play: @pet.Play</li>
+        <li>Sleep: @pet.Sleep</li>
+        <li>Age: @pet.Days</li>
+      </ul>
+    <form action="/index/@pet.Id" method="post">
+    <input type="hidden" name="food" value="true">
+    <button type="submit">Feed!</button>
+    </form>
+
+    <form action="/index/@pet.Id" method="post">
+    <input type="hidden" name="play" value="true">
+    <button type="submit">play!</button>
+    </form>
+
+    <form action="/index/@pet.Id" method="post">
+    <input type="hidden" name="sleep" value="true">
+    <button type="submit">Sleep!</button>
+    </form>
+    }
+    else
+    {
+      <h1>You Killed @pet.Name!!!!!</h1>
+    }
+  }
+</ul>
+
+<form action="/index" method="post">
+<input type="hidden" name="days" value="true">
+<button type="submit">Tomorrow!</button>
+
+<a href="/pets/new">Add Another Tamagotchi!</a>
